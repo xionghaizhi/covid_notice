@@ -1,0 +1,28 @@
+name: 新冠疫情消息订阅
+
+on:
+  schedule:
+    - cron: '00 02 * * *'
+  watch:
+    types: [ started ]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: 'Set up Python'
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+
+      - name: 'Install requirements'
+        run: pip install -r ./requirements.txt
+
+      - name: '运行【消息订阅】'
+        env:
+          PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
+          AREA_LIST: ${{ secrets.AREA_LIST }}
+        run: python3 index.py
