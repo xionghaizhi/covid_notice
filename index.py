@@ -2,6 +2,8 @@ import json
 import re
 import requests
 import os
+
+
 def crawl_dxy_data():
     """
     爬取丁香医生实时统计数据，保存到data目录下，以当前日期作为文件名，存JSON文件
@@ -14,7 +16,7 @@ def crawl_dxy_data():
                                 headers=headers)
         response.encoding = response.apparent_encoding
         url_text = response.text
-        print(url_text)
+        # print(url_text)
         url_content = re.search(r'window.getListByCountryTypeService2true = (.*?)}]}catch', url_text, re.S)
         texts = url_content.group()
         content = texts.replace('window.getListByCountryTypeService2true = ', '').replace('}catch', '')
@@ -153,7 +155,7 @@ def create_notice(json_array):
 
 
 def getDataNumber(item, Keyword):
-    if item["incrVo"] is None:
+    if item["incrVo"] is None or item['incrVo'] == {}:
         return '暂无数据'
     return item["incrVo"][Keyword]
 
