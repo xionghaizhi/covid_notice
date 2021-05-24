@@ -150,8 +150,11 @@ def create_notice(json_array):
                    f'现存确诊：{item["currentConfirmedCount"]}，昨日新增：{getDataNumber(item, "currentConfirmedIncr")} \n' \
                    f'累计确诊：{item["confirmedCount"]}，昨日累计确诊新增：{getDataNumber(item, "confirmedIncr")} \n' \
                    f'累计治愈：{item["curedCount"]}，昨日治愈新增：{getDataNumber(item, "curedIncr")} \n' \
-                   f'累计死亡：{item["deadCount"]}，昨日死亡新增：{getDataNumber(item, "deadIncr")} \n'
-            notice = notice + temp
+                   f'累计死亡：{item["deadCount"]}，昨日死亡新增：{getDataNumber(item, "deadIncr")} '
+            if notice == '':
+                notice = temp
+            else:
+                notice = notice + '\n===================\n' + temp
     sendMsg(notice)
 
 
