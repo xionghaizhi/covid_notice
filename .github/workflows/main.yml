@@ -25,4 +25,4 @@ jobs:
         env:
           PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
           AREA_LIST: ${{ secrets.AREA_LIST }}
-        run: python3 index.py
+        run: python3 index_2.py
