@@ -1,4 +1,4 @@
-name: 新冠疫情消息订阅
+name: COVID-19消息订阅
 
 on:
   schedule:
@@ -25,4 +25,5 @@ jobs:
         env:
           PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
           AREA_LIST: ${{ secrets.AREA_LIST }}
+          AREA_OBJ: ${{ secrets.AREA_OBJ }}
         run: python3 index_2.py
