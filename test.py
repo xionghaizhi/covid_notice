@@ -15,6 +15,15 @@ def get():
     return 0, 0, 0, 0
 
 
+def getDanagerLevel(x):
+    return {
+        1: '高风险地区',
+        2: '中风险地区',
+        3: '低风险地区'
+    }.get(x, '')
+
+
 if __name__ == '__main__':
-    currentConfirmedIncr, confirmedIncr, curedIncr, deadIncr = get()
-    print(currentConfirmedIncr, confirmedIncr, curedIncr, deadIncr)
+    # currentConfirmedIncr, confirmedIncr, curedIncr, deadIncr = get()
+    # print(currentConfirmedIncr, confirmedIncr, curedIncr, deadIncr)
+    print(getDanagerLevel(2))

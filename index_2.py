@@ -73,8 +73,24 @@ def getProvinceData(data, searchData):
                    f'> * 累计治愈：{item["curedCount"]}，较昨日治愈新增：{curedIncr} \n' \
                    f'> * 累计死亡：{item["deadCount"]}，较昨日死亡新增：{deadIncr} \n' \
                    f'> * 疑似数量：{item["suspectedCount"]} \n\n'
+            tempDangerAreas = f'> * 危险地区：\n'
+            if item['dangerAreas'] != []:
+                for dangerAreas in item['dangerAreas']:
+                    tempDangerAreas = tempDangerAreas + f'> * 城市：{dangerAreas["cityName"]}，区：{dangerAreas["areaName"]}，等级：{getDanagerLevel(dangerAreas["dangerLevel"])} \n\n'
+            else:
+                tempDangerAreas = tempDangerAreas + '**无**'
+            temp = temp + tempDangerAreas
             return temp
     return '暂无数据'
+
+
+def getDanagerLevel(x):
+    '''获取分享等级'''
+    return {
+        1: '**高风险地区**',
+        2: '*中风险地区*',
+        3: '低风险地区'
+    }.get(x, '')
 
 
 def getCityData(data, searchData):
@@ -121,6 +137,7 @@ def getNotice(json_country, json_area):
     send_msg = ''
     # 获取数据
     str = os.environ["AREA_OBJ"]
+    # str = '[{"name":"中国","locationId":"","province":[{"name":"山东省","locationId":"","city":[{"name":"济南","locationId":""}]},{"name":"广东省","locationId":"","city":[]},{"name":"安徽","locationId":"","city":[]}]}]'
     for item in json.loads(str):
         if send_msg != '':
             send_msg = send_msg + '\n===================\n'
@@ -165,5 +182,5 @@ def getNotice(json_country, json_area):
 if __name__ == '__main__':
     country, area = crawl_dxy_data()
     msg = getNotice(country, area)
-    print(msg)
+    #print(msg)
     sendMsg(msg)
